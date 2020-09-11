@@ -7,14 +7,14 @@ def readme():
 
 
 setup(name='gpsfluxlite',
-    version='0.0.1',
+    version='0.0.2',
     description='CLI to parse GPS RMC Co-ordinates and publish them via MQTT and store into InfluxDB',
     long_description=readme(),
     author='Shan Desai',
     author_email='des@biba.uni-bremen.de',
     license='MIT',
-    packages=['gpsinfluxlite'],
-    scripts=['bin/gpsinfluxlite'],
+    packages=['gpsfluxlite'],
+    scripts=['bin/gpsfluxlite'],
     install_requires=[
         'pynmea2',
         'pyserial',
