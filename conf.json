@@ -1,0 +1,35 @@
+{
+    "device":{
+      "name": "IOTDEV",
+      "ID": "0001"
+    },
+    "influx": {
+      "host": "localhost"
+    },
+    "mqtt": {
+      "broker": "localhost",
+      "port": 1883,
+      "username": null,
+      "password": null,
+      "TLS": {
+          "enable": false,
+          "insecure": false,
+          "tls_version": "tlsv1.2",
+          "certs": {
+            "certdir": "/etc/ssl/mqtt/",
+            "cafile": "ca.crt",
+            "certfile": "mqtt-client.crt",
+            "keyfile": "mqtt-client.key"
+          }
+      }
+    },
+    "gps": {
+      "serialport": "/dev/ttyS4",
+      "baudrate": 9600,
+      "updaterate": 1000,
+      "udp_port": 8092,
+      "topics": [
+          "gps"
+      ]
+    }
+  }
