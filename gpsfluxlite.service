@@ -1,0 +1,13 @@
+[Unit]
+Description=CLI to parse GPS RMC Co-ordinates and publish them via MQTT and store into InfluxDB
+After=influxdb.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/gpsfluxlite --config /etc/umg/conf.json
+ExecStop=/bin/kill -9 $(pidof python3 /usr/bin/gpsfluxlite)
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
