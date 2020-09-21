@@ -7,7 +7,7 @@ def readme():
 
 
 setup(name='gpsfluxlite',
-    version='0.0.2',
+    version='0.0.4',
     description='CLI to parse GPS RMC Co-ordinates and publish them via MQTT and store into InfluxDB',
     long_description=readme(),
     author='Shan Desai',
