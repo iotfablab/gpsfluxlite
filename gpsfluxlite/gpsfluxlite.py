@@ -118,10 +118,13 @@ def read_from_gps(sio, ser, payload_q, mqttc):
                 gps_data = pynmea2.parse(str(msg), check=True)
                 
                 if isinstance(gps_data, pynmea2.RMC):
-                    # Line Protocol Format: geolocation,src=gps lat=<latitude>,lon=<longitude> <ns_timestamp>
-                    payload_q.put_nowait(f'geolocation,src=gps lat={gps_data.latitude:.6f},lon={gps_data.longitude:.6f} {time.time_ns()}\n')
-                    # Line Protocol Format: geolocation,src=gps sog=<speed_over_ground>,cog=<course_over_ground> <ns_timestamp>
-                    payload_q.put_nowait(f'groundvelocity,src=gps sog={gps_data.spd_over_grnd},cog={gps_data.true_course} {time.time_ns()}\n')
+                    if gps_data.latitude == 0.0 and gps_data.longitude == 0.0:
+                        logger.info('No RMC Co-ordinates available. Waiting for Satellite Lock on Device')
+                    else:
+                        # Line Protocol Format: geolocation,src=gps lat=<latitude>,lon=<longitude> <ns_timestamp>
+                        payload_q.put_nowait(f'geolocation,src=gps lat={gps_data.latitude:.6f},lon={gps_data.longitude:.6f} {time.time_ns()}\n')
+                        # Line Protocol Format: geolocation,src=gps sog=<speed_over_ground>,cog=<course_over_ground> <ns_timestamp>
+                        payload_q.put_nowait(f'groundvelocity,src=gps sog={gps_data.spd_over_grnd},cog={gps_data.true_course} {time.time_ns()}\n')
 
                     # If Queue is full i.e. latitude, longitude, speed over ground, course over ground
                     if payload_q.full():
